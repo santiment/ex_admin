@@ -60,7 +60,7 @@ defmodule ExAdmin.Mixfile do
     [
       {:decimal, "~> 1.0"},
       {:phoenix, "~> 1.4"},
-      {:phoenix_html, "~> 2.6"},
+      {:phoenix_html, "~> 2.12"},
       {:ecto, "~> 3.0"},
       {:phoenix_ecto, "~> 4.0"},
       {:postgrex, "~> 0.14", only: :test},
@@ -69,8 +69,7 @@ defmodule ExAdmin.Mixfile do
       {:plug_cowboy, "~> 2.0"},
       {:inflex, "~> 1.7"},
       {:scrivener_ecto, "~> 2.0"},
-      # TODO: https://github.com/smpallen99/xain/issues/20
-      {:xain, "0.6.1"},
+      {:xain, "0.6.2"},
       {:csvlixir, "~> 1.0.0"},
       {:exactor, "~> 2.2.0"},
       {:ex_doc, "~> 0.16.2", only: :dev},
