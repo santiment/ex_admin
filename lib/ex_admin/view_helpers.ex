@@ -116,6 +116,7 @@ defmodule ExAdmin.ViewHelpers do
                    ],
                    %{}
                  )
+
   # {~S(\"), ~S(\\")},
 
   def escape_javascript(unescaped) do

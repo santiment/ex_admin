@@ -113,6 +113,7 @@ defmodule ExAdmin.Index do
   import ExAdmin.Gettext
   import Kernel, except: [div: 2, to_string: 1]
   use Xain
+
   # alias ExAdmin.Schema
 
   @doc false
