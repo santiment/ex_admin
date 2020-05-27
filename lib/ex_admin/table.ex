@@ -2,14 +2,16 @@ Code.ensure_compiled(ExAdmin.Utils)
 
 defmodule ExAdmin.Table do
   @moduledoc false
-  require Integer
   use Xain
   import ExAdmin.Helpers
   import ExAdmin.Utils
   import ExAdmin.Render
   import ExAdmin.Theme.Helpers
   import Kernel, except: [to_string: 1]
+
   alias ExAdmin.Schema
+
+  require Integer
 
   def attributes_table(conn, resource, schema) do
     theme_module(conn, Table).theme_attributes_table(conn, resource, schema, model_name(resource))
@@ -90,9 +92,7 @@ defmodule ExAdmin.Table do
               build_field(resource, conn, {f_name, Enum.into(opts, %{})}, fn contents, f_name ->
                 td ".td-#{parameterize(f_name)}" do
                   contents
-                  |> HtmlSanitizeEx.html5()
-
-                  # |> Phoenix.HTML.raw()
+                  |> Phoenix.HTML.raw()
                 end
               end)
           end
@@ -123,11 +123,13 @@ defmodule ExAdmin.Table do
 
   def do_panel(conn, columns \\ [], table_opts \\ [], output \\ [])
 
-  def do_panel(_conn, [], _table_opts, output),
-    do:
-      output
-      |> Enum.reverse()
-      |> Enum.join()
+  def do_panel(_conn, [] = columns, table_opts, output) do
+    output
+    |> Enum.reverse()
+    |> Enum.map(fn x -> x |> Phoenix.HTML.html_escape() |> Phoenix.HTML.safe_to_string() end)
+    |> Enum.join()
+    |> Phoenix.HTML.raw()
+  end
 
   def do_panel(
         conn,
@@ -157,8 +159,11 @@ defmodule ExAdmin.Table do
   def do_panel(conn, [{:contents, %{contents: content}} | tail], table_opts, output) do
     output = [
       case content do
-        {:safe, _} -> Phoenix.HTML.safe_to_string(content)
-        content -> content
+        {:safe, _} ->
+          Phoenix.HTML.safe_to_string(content)
+
+        content ->
+          content
       end
       |> Xain.raw()
       | output
@@ -310,9 +315,7 @@ defmodule ExAdmin.Table do
       td to_class(".td-", field_name) do
         contents
         |> text()
-        |> HtmlSanitizeEx.html5()
-
-        # |> Phoenix.HTML.raw()
+        |> Phoenix.HTML.raw()
       end
     end
   end
@@ -326,9 +329,7 @@ defmodule ExAdmin.Table do
       contents
       |> Enum.map(fn content ->
         content
-        |> HtmlSanitizeEx.html5()
-
-        # |> Phoenix.HTML.raw()
+        |> Phoenix.HTML.raw()
       end)
       |> Enum.join(" ")
 
@@ -344,9 +345,7 @@ defmodule ExAdmin.Table do
     markup do
       td to_class(".td-", field_name) do
         contents
-        |> HtmlSanitizeEx.html5()
-
-        # |> Phoenix.HTML.raw()
+        |> Phoenix.HTML.raw()
       end
     end
   end
