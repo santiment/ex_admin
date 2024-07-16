@@ -100,13 +100,13 @@ defmodule ExAdmin do
 
   in `web/templates/admin/admin_layout.html.eex`
   ```html
-  <link rel='stylesheet' href='<%= static_path(@conn, "/css/admin_custom.css") %>'>
+  <link rel='stylesheet' href='<%= static_path(@conn, "/assets/admin_custom.css") %>'>
 
   <!--
     since this is rendered into the head area, make sure to defer the loading
     of your scripts with `async` to not block rendering.
   -->
-  <script async src='<%= static_path(@conn, "/js/app.js") %>'></script>
+  <script async src='<%= static_path(@conn, "/assets/app.js") %>'></script>
   ```
 
   in `priv/static/css/admin_custom.css`
@@ -246,9 +246,7 @@ defmodule ExAdmin do
 
         nil ->
           raise ArgumentError.exception(
-                  "Association #{assoc_name} is not found.\n#{inspect(resource_model)}.__schema__(:association, #{
-                    inspect(assoc_name)
-                  }) returns nil"
+                  "Association #{assoc_name} is not found.\n#{inspect(resource_model)}.__schema__(:association, #{inspect(assoc_name)}) returns nil"
                 )
 
         _ ->
